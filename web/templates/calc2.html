@@ -1,0 +1,242 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<ul class="nav nav-tabs">
+
+  <li class="nav-item">
+    <a class="nav-link" href="/calculator">PV-Calculator FAQ's</a>
+  </li>
+
+  <li class="nav-item">
+    <a class="nav-link" href="/calc1">#1 Energy usage calculator</a>
+  </li>
+
+  <li class="nav-item">
+    <a class="nav-link active" href="/calc2">#2 Battery bank dimensioning</a>
+  </li>
+
+  <li class="nav-item">
+    <a class="nav-link" href="/calc3">#3 Monthly irradiation evaluator</a>
+  </li>
+
+  <li class="nav-item">
+    <a class="nav-link" href="/calc4">#4 PV array sizing</a>
+  </li>
+
+  <style>
+  .nav-link {
+      color: gray;
+  }
+  .nav-link:hover {
+    color: black;
+  }
+  </style>
+
+</ul>
+
+
+
+
+<div class="p-3 mb-2">
+    <div class="container py-2">
+        <div class="row">
+            <div class="col">
+                <div class="col-xs-12" style="height:30px;"></div>
+
+
+                <!--  Card 1 starts here  -->
+                <div class="card border-black text-black mx-auto" style="width: 50rem;">
+                  <div class="card-body">
+                    <p class="card-text">
+                      This battery bank calculator requires six user input values as described in the table below. Specifications is
+                      usually found in the battery datasheet, or in general by battery type elsewhere.
+                    </p>
+
+                    <div class="col-xs-12" style="height:40px;"></div>
+
+
+
+
+                    <div class="container py-2">
+                    <div class="row">
+                        <div class="col">
+
+                            <! Input #1 box code below>
+                            <div class="input-group mb-3" style="width:720px;">
+                              <! method POST1>
+                              <form method="POST">
+                                <div class="form-row align-items-center">
+                                  <div class="col-auto">
+                                    <label class="sr-only" for="inlineFormInputGroup">labelA</label>
+                                    <div class="col-xs-12" style="height:10px;"></div>
+
+
+                                    <table class="table table-bordered">
+                                      <thead>
+                                        <tr>
+                                          <th scope="col"></th>
+                                          <th scope="col">Description</th>
+                                          <th scope="col">Input</th>
+                                          <th scope="col">Result</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+
+                                        <tr>
+                                          <th scope="row"></th>
+                                          <td>
+                                            <! step 0 description >
+                                            <div>
+                                              Daily energy usage. Value can be found
+                                              <br>and used with help from page #1.
+                                            </div>
+                                          </td>
+                                          <td>
+                                            <! Input daily_wh >
+                                            <div class="input-group mb-2">
+                                              <input name="daily_wh" type="text" class="form-control" id="inlineFormInputGroup" placeholder="insert value in [Wh]" value="{{ request.form['daily_wh'] }}"/>
+                                            </div>
+                                          </td>
+                                          <td>{{ r_0 }} [Wh]</td>
+                                        </tr>
+
+
+                                        <tr>
+                                          <th scope="row">1</th>
+                                          <td>
+                                            <! step 1 description >
+                                            <div>
+                                              Battery efficiency. Sometimes called round-trip efficiency.
+                                            </div>
+                                          </td>
+                                          <td>
+                                            <! Input batt_eff >
+                                            <div class="input-group mb-2">
+                                              <input name="batt_eff" type="text" class="form-control" id="inlineFormInputGroup" placeholder="insert value in [%]" value="{{ request.form['batt_eff'] }}"/>
+                                            </div>
+                                          </td>
+                                          <td>{{ r_1 }} [Wh]</td>
+                                        </tr>
+
+
+
+                                        <tr>
+                                          <th scope="row">2</th>
+                                          <td>
+                                            <! step 2 description >
+                                            <div>
+                                              Preferred battery DOD (depth-of-discharge).
+                                            </div>
+                                          </td>
+                                          <td>
+                                            <! Input hours_3 >
+                                            <div class="input-group mb-2">
+                                              <input name="dod" type="text" class="form-control" id="inlineFormInputGroup" placeholder="insert value in [%]" value="{{ request.form['dod'] }}"/>
+                                            </div>
+                                          </td>
+                                          <td>{{ r_2 }} [Wh]</td>
+                                        </tr>
+
+
+
+                                        <tr>
+                                          <th scope="row">3</th>
+                                          <td>
+                                            <! step 3 description >
+                                            <div>
+                                              Temperature efficiency, from operating at a
+                                              <br>specific temperature.
+                                            </div>
+                                          </td>
+                                          <td>
+                                            <! Input hours_4 >
+                                            <div class="input-group mb-2">
+                                              <input name="temp_eff" type="text" class="form-control" id="inlineFormInputGroup" placeholder="insert value in [%]" value="{{ request.form['temp_eff'] }}"/>
+                                            </div>
+                                          </td>
+                                          <td>{{ r_3 }} [Wh]</td>
+                                        </tr>
+
+
+                                        <tr>
+                                          <th scope="row">4</th>
+                                          <td>
+                                            <! step 4 description >
+                                            <div>
+                                              Desired number of days the battery bank should function
+                                              <br>as a backup during low irradiation weather conditions.
+                                            </div>
+                                          </td>
+                                          <td>
+                                            <! Input hours_5 >
+                                            <div class="input-group mb-2">
+                                              <input name="backup_days" type="text" class="form-control" id="inlineFormInputGroup" placeholder="insert number of days" value="{{ request.form['backup_days'] }}"/>
+                                            </div>
+                                          </td>
+                                          <td>{{ r_4 }} [Wh]</td>
+                                        </tr>
+
+
+                                        <tr>
+                                          <th scope="row">5</th>
+                                          <td>
+                                            <! step 5 description >
+                                            <div>
+                                                Desired battery bank voltage.
+                                            </div>
+                                          </td>
+                                          <td>
+                                            <! Input hours_6 >
+                                            <div class="input-group mb-2">
+                                              <input name="voltage" type="text" class="form-control" id="inlineFormInputGroup" placeholder="insert value in [V]" value="{{ request.form['voltage'] }}"/>
+                                            </div>
+                                          </td>
+                                          <td>{{ r_5 }} [Ah]</td>
+                                        </tr>
+
+
+
+                                        <tr>
+                                          <th scope="row"></th>
+                                          <td colspan="2"><p align="right">Your estimated battery bank capacity in amphours:</p></td>
+                                          <td><b>{{ ah_result }} [Ah]</b></td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+
+
+
+                                  </div>
+                                </div>
+                                <div class="col-xs-12" style="height:10px;"></div>
+                                <input type="submit" class="btn btn-primary">
+                              </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <p class="card-text">Comments and improvement suggestions are always welcomed and appreciated.</p>
+
+
+
+                  </div>
+                </div>
+
+                <div class="col-xs-12" style="height:40px;"></div>
+
+
+              <div class="col-xs-12" style="height:500px;"></div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+{% endblock content %}

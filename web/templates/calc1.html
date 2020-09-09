@@ -1,0 +1,547 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<ul class="nav nav-tabs">
+
+  <li class="nav-item">
+    <a class="nav-link" href="/calculator">PV-Calculator FAQ's</a>
+  </li>
+
+  <li class="nav-item">
+    <a class="nav-link active" href="/calc1">#1 Energy usage calculator</a>
+  </li>
+
+  <li class="nav-item">
+    <a class="nav-link" href="/calc2">#2 Battery bank dimensioning</a>
+  </li>
+
+  <li class="nav-item">
+    <a class="nav-link" href="/calc3">#3 Monthly irradiation evaluator</a>
+  </li>
+
+  <li class="nav-item">
+    <a class="nav-link" href="/calc4">#4 PV array sizing</a>
+  </li>
+
+  <style>
+  .nav-link {
+      color: gray;
+  }
+  .nav-link:hover {
+    color: black;
+  }
+  </style>
+
+</ul>
+
+
+
+<div class="p-3 mb-2">
+    <div class="container py-2">
+        <div class="row">
+            <div class="col">
+                <div class="col-xs-12" style="height:30px;"></div>
+
+
+                <!--  Card 1 starts here  -->
+                <div class="card border-black text-black mx-auto" style="width: 50rem;">
+                  <div class="card-body">
+                    <p class="card-text">This is a simple energy consumption calculator where you insert power consumption in watts and time of use per day.
+                    The totalling Watthours per day can be used further for battery bank calculations. Must type zero in any field not used.
+                </p>
+
+                    <div class="col-xs-12" style="height:40px;"></div>
+
+
+
+                    <head>
+                      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+                      <script type=text/javascript>
+                        $(function(){
+                          $(".dropdown-menu li a").click(function(){
+                          $(this).parents(".dropdown").find('.btn').html($(this).text() + ' <span class="caret"></span>');
+                          $(this).parents(".dropdown").find('.btn').val($(this).data('value'));
+                          });
+                        });
+                      </script>
+                    </head>
+
+
+
+                    <script type="text/javascript" src="{{ url_for('static', filename='dropdown.js') }}"></script>
+
+
+
+                            <div class="row">
+                                <div class="col">
+                                    <! Input #1 box code below>
+                                    <div class="input-group mb-3" style="width:770px;">
+                                      <! method POST1>
+                                      <form method="POST">
+                                        <div class="form-row align-items-center">
+                                          <div class="col-auto">
+                                            <label class="sr-only" for="inlineFormInputGroup">labelA</label>
+                                            <div class="col-xs-12" style="height:10px;"></div>
+
+
+                                            <table class="table table-bordered">
+                                              <thead>
+                                                <tr>
+                                                  <th scope="col"></th>
+                                                  <th scope="col">Watt [W]</th>
+                                                  <th scope="col">Hours used per day [h]</th>
+                                                  <th scope="col">Watthours per day [Wh]</th>
+                                                </tr>
+                                              </thead>
+                                              <tbody>
+
+                                                <tr>
+                                                  <th scope="row">
+                                                    <div class="dropdown">
+                                                      <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                        Appliance
+                                                        <span class="caret"></span>
+                                                      </button>
+                                                      <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                                        <li><a href="#" data-value="Lighting">Lighting</a></li>
+                                                        <li><a href="#" data-value="Router">Router</a></li>
+                                                        <li><a href="#" data-value="Laptop charger">Laptop charger</a></li>
+                                                        <li><a href="#" data-value="Washing machine">Washing machine</a></li>
+                                                        <li><a href="#" data-value="Water boiler">Water boiler</a></li>
+                                                        <li><a href="#" data-value="Induction cooktop">Induction cooktop</a></li>
+                                                        <li><a href="#" data-value="Water heater">Water heater</a></li>
+                                                        <li><a href="#" data-value="Fridge freezer">Fridge/freezer</a></li>
+                                                        <li><a href="#" data-value="Other1">Other 1</a></li>
+                                                        <li><a href="#" data-value="Other2">Other 2</a></li>
+                                                      </ul>
+                                                    </div>
+                                                  </th>
+                                                  <td>
+                                                    <! Input watts_1 >
+                                                    <div class="input-group mb-2">
+                                                      <input name="w1" type="text" class="form-control" id="inlineFormInputGroup" placeholder="insert value" value="{{ request.form['w1'] }}"/>
+                                                    </div>
+                                                  </td>
+                                                  <td>
+                                                    <! Input hours_1 >
+                                                    <div class="input-group mb-2">
+                                                      <input name="h1" type="text" class="form-control" id="inlineFormInputGroup" placeholder="insert value" value="{{ request.form['h1'] }}"/>
+                                                    </div>
+                                                  </td>
+                                                  <td>{{ wh_1 }}</td>
+                                                </tr>
+
+
+                                                <tr>
+                                                  <th scope="row">
+                                                    <div class="dropdown">
+                                                      <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                        Appliance
+                                                        <span class="caret"></span>
+                                                      </button>
+                                                      <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                                        <li><a href="#" data-value="Lighting">Lighting</a></li>
+                                                        <li><a href="#" data-value="Router">Router</a></li>
+                                                        <li><a href="#" data-value="Laptop charger">Laptop charger</a></li>
+                                                        <li><a href="#" data-value="Washing machine">Washing machine</a></li>
+                                                        <li><a href="#" data-value="Water boiler">Water boiler</a></li>
+                                                        <li><a href="#" data-value="Induction cooktop">Induction cooktop</a></li>
+                                                        <li><a href="#" data-value="Water heater">Water heater</a></li>
+                                                        <li><a href="#" data-value="Fridge freezer">Fridge/freezer</a></li>
+                                                        <li><a href="#" data-value="Other1">Other 1</a></li>
+                                                        <li><a href="#" data-value="Other2">Other 2</a></li>
+                                                      </ul>
+                                                    </div>
+                                                  </th>
+                                                  <td>
+                                                    <! Input watts_2 >
+                                                    <div class="input-group mb-2">
+                                                      <input name="w2" type="text" class="form-control" id="inlineFormInputGroup" placeholder="insert value" value="{{ request.form['w2'] }}"/>
+                                                    </div>
+                                                  </td>
+                                                  <td>
+                                                    <! Input hours_2 >
+                                                    <div class="input-group mb-2">
+                                                      <input name="h2" type="text" class="form-control" id="inlineFormInputGroup" placeholder="insert value" value="{{ request.form['h2'] }}"/>
+                                                    </div>
+                                                  </td>
+                                                  <td>{{ wh_2 }}</td>
+                                                </tr>
+
+
+
+                                                <tr>
+                                                  <th scope="row">
+                                                    <div class="dropdown">
+                                                      <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                        Appliance
+                                                        <span class="caret"></span>
+                                                      </button>
+                                                      <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                                        <li><a href="#" data-value="Lighting">Lighting</a></li>
+                                                        <li><a href="#" data-value="Router">Router</a></li>
+                                                        <li><a href="#" data-value="Laptop charger">Laptop charger</a></li>
+                                                        <li><a href="#" data-value="Washing machine">Washing machine</a></li>
+                                                        <li><a href="#" data-value="Water boiler">Water boiler</a></li>
+                                                        <li><a href="#" data-value="Induction cooktop">Induction cooktop</a></li>
+                                                        <li><a href="#" data-value="Water heater">Water heater</a></li>
+                                                        <li><a href="#" data-value="Fridge freezer">Fridge/freezer</a></li>
+                                                        <li><a href="#" data-value="Other1">Other 1</a></li>
+                                                        <li><a href="#" data-value="Other2">Other 2</a></li>
+                                                      </ul>
+                                                    </div>
+                                                  </th>
+                                                  <td>
+                                                    <! Input watts_3 >
+                                                    <div class="input-group mb-2">
+                                                      <input name="w3" type="text" class="form-control" id="inlineFormInputGroup" placeholder="insert value" value="{{ request.form['w3'] }}"/>
+                                                    </div>
+                                                  </td>
+                                                  <td>
+                                                    <! Input hours_3 >
+                                                    <div class="input-group mb-2">
+                                                      <input name="h3" type="text" class="form-control" id="inlineFormInputGroup" placeholder="insert value" value="{{ request.form['h3'] }}"/>
+                                                    </div>
+                                                  </td>
+                                                  <td>{{ wh_3 }}</td>
+                                                </tr>
+
+
+
+                                                <tr>
+                                                  <th scope="row">
+                                                    <div class="dropdown">
+                                                      <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                        Appliance
+                                                        <span class="caret"></span>
+                                                      </button>
+                                                      <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                                        <li><a href="#" data-value="Lighting">Lighting</a></li>
+                                                        <li><a href="#" data-value="Router">Router</a></li>
+                                                        <li><a href="#" data-value="Laptop charger">Laptop charger</a></li>
+                                                        <li><a href="#" data-value="Washing machine">Washing machine</a></li>
+                                                        <li><a href="#" data-value="Water boiler">Water boiler</a></li>
+                                                        <li><a href="#" data-value="Induction cooktop">Induction cooktop</a></li>
+                                                        <li><a href="#" data-value="Water heater">Water heater</a></li>
+                                                        <li><a href="#" data-value="Fridge freezer">Fridge/freezer</a></li>
+                                                        <li><a href="#" data-value="Other1">Other 1</a></li>
+                                                        <li><a href="#" data-value="Other2">Other 2</a></li>
+                                                      </ul>
+                                                    </div>
+                                                  </th>
+                                                  <td>
+                                                    <! Input watts_4 >
+                                                    <div class="input-group mb-2">
+                                                      <input name="w4" type="text" class="form-control" id="inlineFormInputGroup" placeholder="insert value" value="{{ request.form['w4'] }}"/>
+                                                    </div>
+                                                  </td>
+                                                  <td>
+                                                    <! Input hours_4 >
+                                                    <div class="input-group mb-2">
+                                                      <input name="h4" type="text" class="form-control" id="inlineFormInputGroup" placeholder="insert value" value="{{ request.form['h4'] }}"/>
+                                                    </div>
+                                                  </td>
+                                                  <td>{{ wh_4 }}</td>
+                                                </tr>
+
+
+
+
+
+
+                                                <tr>
+                                                  <th scope="row">
+                                                    <div class="dropdown">
+                                                      <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                        Appliance
+                                                        <span class="caret"></span>
+                                                      </button>
+                                                      <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                                        <li><a href="#" data-value="Lighting">Lighting</a></li>
+                                                        <li><a href="#" data-value="Router">Router</a></li>
+                                                        <li><a href="#" data-value="Laptop charger">Laptop charger</a></li>
+                                                        <li><a href="#" data-value="Washing machine">Washing machine</a></li>
+                                                        <li><a href="#" data-value="Water boiler">Water boiler</a></li>
+                                                        <li><a href="#" data-value="Induction cooktop">Induction cooktop</a></li>
+                                                        <li><a href="#" data-value="Water heater">Water heater</a></li>
+                                                        <li><a href="#" data-value="Fridge freezer">Fridge/freezer</a></li>
+                                                        <li><a href="#" data-value="Other1">Other 1</a></li>
+                                                        <li><a href="#" data-value="Other2">Other 2</a></li>
+                                                      </ul>
+                                                    </div>
+                                                  </th>
+                                                  <td>
+                                                    <! Input watts_5 >
+                                                    <div class="input-group mb-2">
+                                                      <input name="w5" type="text" class="form-control" id="inlineFormInputGroup" placeholder="insert value" value="{{ request.form['w5'] }}"/>
+                                                    </div>
+                                                  </td>
+                                                  <td>
+                                                    <! Input hours_5 >
+                                                    <div class="input-group mb-2">
+                                                      <input name="h5" type="text" class="form-control" id="inlineFormInputGroup" placeholder="insert value" value="{{ request.form['h5'] }}"/>
+                                                    </div>
+                                                  </td>
+                                                  <td>{{ wh_5 }}</td>
+                                                </tr>
+
+
+
+
+
+
+                                                <tr>
+                                                  <th scope="row">
+                                                    <div class="dropdown">
+                                                      <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                        Appliance
+                                                        <span class="caret"></span>
+                                                      </button>
+                                                      <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                                        <li><a href="#" data-value="Lighting">Lighting</a></li>
+                                                        <li><a href="#" data-value="Router">Router</a></li>
+                                                        <li><a href="#" data-value="Laptop charger">Laptop charger</a></li>
+                                                        <li><a href="#" data-value="Washing machine">Washing machine</a></li>
+                                                        <li><a href="#" data-value="Water boiler">Water boiler</a></li>
+                                                        <li><a href="#" data-value="Induction cooktop">Induction cooktop</a></li>
+                                                        <li><a href="#" data-value="Water heater">Water heater</a></li>
+                                                        <li><a href="#" data-value="Fridge freezer">Fridge/freezer</a></li>
+                                                        <li><a href="#" data-value="Other1">Other 1</a></li>
+                                                        <li><a href="#" data-value="Other2">Other 2</a></li>
+                                                      </ul>
+                                                    </div>
+                                                  </th>
+                                                  <td>
+                                                    <! Input watts_6 >
+                                                    <div class="input-group mb-2">
+                                                      <input name="w6" type="text" class="form-control" id="inlineFormInputGroup" placeholder="insert value" value="{{ request.form['w6'] }}"/>
+                                                    </div>
+                                                  </td>
+                                                  <td>
+                                                    <! Input hours_6 >
+                                                    <div class="input-group mb-2">
+                                                      <input name="h6" type="text" class="form-control" id="inlineFormInputGroup" placeholder="insert value" value="{{ request.form['h6'] }}"/>
+                                                    </div>
+                                                  </td>
+                                                  <td>{{ wh_6 }}</td>
+                                                </tr>
+
+
+
+
+
+                                                <tr>
+                                                  <th scope="row">
+                                                    <div class="dropdown">
+                                                      <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                        Appliance
+                                                        <span class="caret"></span>
+                                                      </button>
+                                                      <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                                        <li><a href="#" data-value="Lighting">Lighting</a></li>
+                                                        <li><a href="#" data-value="Router">Router</a></li>
+                                                        <li><a href="#" data-value="Laptop charger">Laptop charger</a></li>
+                                                        <li><a href="#" data-value="Washing machine">Washing machine</a></li>
+                                                        <li><a href="#" data-value="Water boiler">Water boiler</a></li>
+                                                        <li><a href="#" data-value="Induction cooktop">Induction cooktop</a></li>
+                                                        <li><a href="#" data-value="Water heater">Water heater</a></li>
+                                                        <li><a href="#" data-value="Fridge freezer">Fridge/freezer</a></li>
+                                                        <li><a href="#" data-value="Other1">Other 1</a></li>
+                                                        <li><a href="#" data-value="Other2">Other 2</a></li>
+                                                      </ul>
+                                                    </div>
+                                                  </th>
+                                                  <td>
+                                                    <! Input watts_7 >
+                                                    <div class="input-group mb-2">
+                                                      <input name="w7" type="text" class="form-control" id="inlineFormInputGroup" placeholder="insert value" value="{{ request.form['w7'] }}"/>
+                                                    </div>
+                                                  </td>
+                                                  <td>
+                                                    <! Input hours_7 >
+                                                    <div class="input-group mb-2">
+                                                      <input name="h7" type="text" class="form-control" id="inlineFormInputGroup" placeholder="insert value" value="{{ request.form['h7'] }}"/>
+                                                    </div>
+                                                  </td>
+                                                  <td>{{ wh_7 }}</td>
+                                                </tr>
+
+
+
+
+
+
+                                                <tr>
+                                                  <th scope="row">
+                                                    <div class="dropdown">
+                                                      <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                        Appliance
+                                                        <span class="caret"></span>
+                                                      </button>
+                                                      <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                                        <li><a href="#" data-value="Lighting">Lighting</a></li>
+                                                        <li><a href="#" data-value="Router">Router</a></li>
+                                                        <li><a href="#" data-value="Laptop charger">Laptop charger</a></li>
+                                                        <li><a href="#" data-value="Washing machine">Washing machine</a></li>
+                                                        <li><a href="#" data-value="Water boiler">Water boiler</a></li>
+                                                        <li><a href="#" data-value="Induction cooktop">Induction cooktop</a></li>
+                                                        <li><a href="#" data-value="Water heater">Water heater</a></li>
+                                                        <li><a href="#" data-value="Fridge freezer">Fridge/freezer</a></li>
+                                                        <li><a href="#" data-value="Other1">Other 1</a></li>
+                                                        <li><a href="#" data-value="Other2">Other 2</a></li>
+                                                      </ul>
+                                                    </div>
+                                                  </th>
+                                                  <td>
+                                                    <! Input watts_8 >
+                                                    <div class="input-group mb-2">
+                                                      <input name="w8" type="text" class="form-control" id="inlineFormInputGroup" placeholder="insert value" value="{{ request.form['w8'] }}"/>
+                                                    </div>
+                                                  </td>
+                                                  <td>
+                                                    <! Input hours_8 >
+                                                    <div class="input-group mb-2">
+                                                      <input name="h8" type="text" class="form-control" id="inlineFormInputGroup" placeholder="insert value" value="{{ request.form['h8'] }}"/>
+                                                    </div>
+                                                  </td>
+                                                  <td>{{ wh_8 }}</td>
+                                                </tr>
+
+
+
+
+
+                                                <tr>
+                                                  <th scope="row">
+                                                    <div class="dropdown">
+                                                      <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                        Appliance
+                                                        <span class="caret"></span>
+                                                      </button>
+                                                      <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                                        <li><a href="#" data-value="Lighting">Lighting</a></li>
+                                                        <li><a href="#" data-value="Router">Router</a></li>
+                                                        <li><a href="#" data-value="Laptop charger">Laptop charger</a></li>
+                                                        <li><a href="#" data-value="Washing machine">Washing machine</a></li>
+                                                        <li><a href="#" data-value="Water boiler">Water boiler</a></li>
+                                                        <li><a href="#" data-value="Induction cooktop">Induction cooktop</a></li>
+                                                        <li><a href="#" data-value="Water heater">Water heater</a></li>
+                                                        <li><a href="#" data-value="Fridge freezer">Fridge/freezer</a></li>
+                                                        <li><a href="#" data-value="Other1">Other 1</a></li>
+                                                        <li><a href="#" data-value="Other2">Other 2</a></li>
+                                                      </ul>
+                                                    </div>
+                                                  </th>
+                                                  <td>
+                                                    <! Input watts_9 >
+                                                    <div class="input-group mb-2">
+                                                      <input name="w9" type="text" class="form-control" id="inlineFormInputGroup" placeholder="insert value" value="{{ request.form['w9'] }}"/>
+                                                    </div>
+                                                  </td>
+                                                  <td>
+                                                    <! Input hours_9 >
+                                                    <div class="input-group mb-2">
+                                                      <input name="h9" type="text" class="form-control" id="inlineFormInputGroup" placeholder="insert value" value="{{ request.form['h9'] }}"/>
+                                                    </div>
+                                                  </td>
+                                                  <td>{{ wh_9 }}</td>
+                                                </tr>
+
+
+
+
+
+                                                <tr>
+                                                  <th scope="row">
+                                                    <div class="dropdown">
+                                                      <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                        Appliance
+                                                        <span class="caret"></span>
+                                                      </button>
+                                                      <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                                        <li><a href="#" data-value="Lighting">Lighting</a></li>
+                                                        <li><a href="#" data-value="Router">Router</a></li>
+                                                        <li><a href="#" data-value="Laptop charger">Laptop charger</a></li>
+                                                        <li><a href="#" data-value="Washing machine">Washing machine</a></li>
+                                                        <li><a href="#" data-value="Water boiler">Water boiler</a></li>
+                                                        <li><a href="#" data-value="Induction cooktop">Induction cooktop</a></li>
+                                                        <li><a href="#" data-value="Water heater">Water heater</a></li>
+                                                        <li><a href="#" data-value="Fridge freezer">Fridge/freezer</a></li>
+                                                        <li><a href="#" data-value="Other1">Other 1</a></li>
+                                                        <li><a href="#" data-value="Other2">Other 2</a></li>
+                                                      </ul>
+                                                    </div>
+                                                  </th>
+                                                  <td>
+                                                    <! Input watts_10 >
+                                                    <div class="input-group mb-2">
+                                                      <input name="w10" type="text" class="form-control" id="inlineFormInputGroup" placeholder="insert value" value="{{ request.form['w10'] }}"/>
+                                                    </div>
+                                                  </td>
+                                                  <td>
+                                                    <! Input hours_10 >
+                                                    <div class="input-group mb-2">
+                                                      <input name="h10" type="text" class="form-control" id="inlineFormInputGroup" placeholder="insert value" value="{{ request.form['h10'] }}"/>
+                                                    </div>
+                                                  </td>
+                                                  <td>{{ wh_10 }}</td>
+                                                </tr>
+
+
+
+                                                <tr>
+                                                  <th scope="row"></th>
+                                                  <td colspan="2"><p align="right">Your total daily energy consumption [Wh] :</p></td>
+                                                  <td>{{ wh_total }}</td>
+                                                </tr>
+                                              </tbody>
+                                            </table>
+
+
+
+                                          </div>
+                                        </div>
+                                        <div class="col-xs-12" style="height:10px;"></div>
+                                        <input type="submit" class="btn btn-primary">
+                                      </form>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <p class="card-text">Comments and improvement suggestions are always welcomed and appreciated.</p>
+
+
+
+                  </div>
+                </div>
+
+                <div class="col-xs-12" style="height:40px;"></div>
+
+
+              <div class="col-xs-12" style="height:500px;"></div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+  
+
+
+
+{% endblock content %}

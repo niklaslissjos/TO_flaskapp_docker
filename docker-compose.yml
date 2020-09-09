@@ -1,0 +1,77 @@
+version: '3'
+
+services:
+  web:
+    restart: always
+    build: ./web
+    expose:
+      - "8000"
+    # links:
+    #   - postgres:postgres
+    volumes:
+      - web-data:/usr/src/app/static
+      - ./web:/usr/src/app
+    env_file:
+      - .env
+    command: /usr/local/bin/gunicorn -w 2 -b :8000 app:app
+
+  nginx:
+    restart: always
+    build: ./nginx
+    ports:
+      - "80:80"
+    volumes:
+      - .:/www/static
+      - web-data:/usr/src/app/static
+    links:
+      - web:web
+
+  # data:
+  #   image: postgres:latest
+  #   volumes:
+  #     - db-data:/var/lib/postgresql/data
+  #   command: "true"
+
+  # postgres:
+  #   restart: always
+  #   image: postgres:latest
+  #   volumes:
+  #     - db-data:/var/lib/postgresql/data
+  #   ports:
+  #     - "5432:5432"
+  #   environment: 
+  #     POSTGRES_HOST_AUTH_METHOD: "trust"
+
+
+  # remark42:
+  #   image: umputun/remark42:latest
+  #   restart: always
+  #   container_name: "remark42"
+  #
+  #   # uncomment to expose directly (no proxy)
+  #   #ports:
+  #   #  - "8080:8080"    #VERY IMPORTANT : DO NOT CHANGE THIS.
+  #
+  #   environment:
+  #     - REMARK_URL=https://demo.remark42.com  # url pointing to your remark42 server
+  #     - SITE=YOUR_SITE_ID                     # site ID, same as used for `site_id`, see "Setup on your website"
+  #     - SECRET=asecretkeyhere           # secret key
+  #     - AUTH_GITHUB_CID=12345667890           # oauth2 client ID
+  #     - AUTH_GITHUB_CSEC=abcdefg12345678      # oauth2 client secret
+  #     - STORE_BOLT_PATH=/srv/var/db
+  #     - BACKUP_PATH=/srv/var/backup
+  #     - DEBUG=true
+  #     - AUTH_ANON=true
+  #
+  #   volumes:
+  #     - ./var:/srv/var                        # persistent volume to store all remark42 data
+
+
+
+
+
+
+
+volumes:
+  db-data:
+  web-data:

@@ -1,0 +1,190 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<ul class="nav nav-tabs">
+
+  <li class="nav-item">
+    <a class="nav-link" href="/calculator">PV-Calculator FAQ's</a>
+  </li>
+
+  <li class="nav-item">
+    <a class="nav-link" href="/calc1">#1 Energy usage calculator</a>
+  </li>
+
+  <li class="nav-item">
+    <a class="nav-link" href="/calc2">#2 Battery bank dimensioning</a>
+  </li>
+
+  <li class="nav-item">
+    <a class="nav-link active" href="/calc3">#3 Monthly irradiation evaluator</a>
+  </li>
+
+  <li class="nav-item">
+    <a class="nav-link" href="/calc4">#4 PV array sizing</a>
+  </li>
+
+  <style>
+  .nav-link {
+      color: gray;
+  }
+  .nav-link:hover {
+    color: black;
+  }
+  </style>
+
+</ul>
+
+
+
+
+<div class="p-3 mb-2">
+    <div class="container py-2">
+        <div class="row">
+            <div class="col">
+                <div class="col-xs-12" style="height:30px;"></div>
+
+
+                <!--  Card 1 starts here  -->
+                <div class="card border-black text-black mx-auto" style="width: 50rem;">
+                  <div class="card-body">
+
+
+
+                    <div class="container py-2">
+                    <div class="row">
+                      <div class="column">
+                        <form class="form-inline" method="POST" action="{{ url_for('calc3') }}">
+                          <div class="form-group">
+                            <div class="input-group">
+                              <div class="col-md" align="right">
+                                <select name="city_choice_1" class="selectpicker form-control">
+                                  <option selected>City A</option>
+                                  <option disabled>─────</option>
+                                  <option disabled>Norway:</option>
+                                  <option value="beitostolen">Beitostølen</option>
+                                  <option value="bergen">Bergen</option>
+                                  <option value="gjovik">Gjøvik</option>
+                                  <option value="haugesund">Haugesund</option>
+                                  <option value="kongsvinger">Kongsvinger</option>
+                                  <option value="kristiansand">Kristiansand</option>
+                                  <option value="kristiansund">Kristiansund</option>
+                                  <option value="lillehammer">Lillehammer</option>
+                                  <option value="oslo">Oslo</option>
+                                  <option value="rjukan">Rjukan</option>
+                                  <option value="stavanger">Stavanger</option>
+                                  <option value="trondheim">Trondheim</option>
+                                  <option value="alesund">Ålesund</option>
+                                  <option disabled>─────</option>
+                                  <option disabled>Sweden:</option>
+                                  <option value="borlange">Borlänge</option>
+                                  <option value="gavle">Gävle</option>
+                                  <option value="idre">Idre</option>
+                                  <option value="malmo">Malmö</option>
+                                  <option value="stockholm">Stockholm</option>
+                                  <option value="goteborg">Göteborg</option>
+                                  <option value="orebro">Örebro</option>
+                                  <option value="ornskoldsvik">Örnsköldsvik</option>
+                                  <option value="ostersund">Östersund</option>
+                                  <option disabled>─────</option>
+                                  <option disabled>Other:</option>
+                                  <option value="berlin">Berlin</option>
+                                  <option value="capetown">Cape Town</option>
+                                  <option value="copenhagen">Copenhagen</option>
+                                  <option value="madrid">Madrid</option>
+                                  <option value="munich">Munich</option>
+                                  <option value="paris">Paris</option>
+                                  <option value="rome">Rome</option>
+                                  <option value="sahara">Sahara</option>
+                                </select>
+                              </div>
+                              <div class="col-md" align="left">
+                                <select name="city_choice_2" class="selectpicker form-control">
+                                  <option selected>City B</option>
+                                  <option disabled>─────</option>
+                                  <option disabled>Norway:</option>
+                                  <option value="beitostolen">Beitostølen</option>
+                                  <option value="bergen">Bergen</option>
+                                  <option value="gjovik">Gjøvik</option>
+                                  <option value="haugesund">Haugesund</option>
+                                  <option value="kongsvinger">Kongsvinger</option>
+                                  <option value="kristiansand">Kristiansand</option>
+                                  <option value="kristiansund">Kristiansund</option>
+                                  <option value="lillehammer">Lillehammer</option>
+                                  <option value="oslo">Oslo</option>
+                                  <option value="rjukan">Rjukan</option>
+                                  <option value="stavanger">Stavanger</option>
+                                  <option value="trondheim">Trondheim</option>
+                                  <option value="alesund">Ålesund</option>
+                                  <option disabled>─────</option>
+                                  <option disabled>Sweden:</option>
+                                  <option value="borlange">Borlänge</option>
+                                  <option value="gavle">Gävle</option>
+                                  <option value="idre">Idre</option>
+                                  <option value="malmo">Malmö</option>
+                                  <option value="stockholm">Stockholm</option>
+                                  <option value="goteborg">Göteborg</option>
+                                  <option value="orebro">Örebro</option>
+                                  <option value="ornskoldsvik">Örnsköldsvik</option>
+                                  <option value="ostersund">Östersund</option>
+                                  <option disabled>─────</option>
+                                  <option disabled>Other:</option>
+                                  <option value="berlin">Berlin</option>
+                                  <option value="capetown">Cape Town</option>
+                                  <option value="copenhagen">Copenhagen</option>
+                                  <option value="madrid">Madrid</option>
+                                  <option value="munich">Munich</option>
+                                  <option value="paris">Paris</option>
+                                  <option value="rome">Rome</option>
+                                  <option value="sahara">Sahara</option>
+                                </select>
+                              </div>
+                              &nbsp;
+                              &nbsp;
+                              &nbsp;
+                              <button type="submit" class="btn btn-primary">Find values</button>
+                            </div>
+                          </div>
+                        </form>
+                        <div class="col-xs-12" style="height:25px;"></div>
+                      </div>
+                    </div>
+                    Choose your nearest city, or two cities to compare. Hover over the graph to see average values.
+
+                    <div class="col-xs-12" style="height:15px;"></div>
+                    <embed type="image/svg+xml" src={{graph_data|safe}} style='max-width:1000px'/>
+
+                    <div class="col-xs-12" style="height:20px;"></div>
+
+                    The histogram is based on ten years (2008-2017) of satellite derived shortwave incoming solar (SIS) radiation data (horizontal surface),
+                    acquired from EUMETSAT’s Satellite Application Facility on Climate Monitoring (CM SAF). Copyright 2020 EUMETSAT, data used with permission.
+
+                    <hr>
+
+                    <div class="col-xs-12" style="height:100px;"></div>
+                  </div>
+
+
+
+
+
+
+
+
+                    <p class="card-text">Comments and improvement suggestions are always welcomed and appreciated.</p>
+
+                  </div>
+                </div>
+
+                <div class="col-xs-12" style="height:40px;"></div>
+
+
+              <div class="col-xs-12" style="height:500px;"></div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock content %}

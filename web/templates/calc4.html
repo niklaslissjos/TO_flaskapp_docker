@@ -1,0 +1,223 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<ul class="nav nav-tabs">
+
+  <li class="nav-item">
+    <a class="nav-link" href="/calculator">PV-Calculator FAQ's</a>
+  </li>
+
+  <li class="nav-item">
+    <a class="nav-link" href="/calc1">#1 Energy usage calculator</a>
+  </li>
+
+  <li class="nav-item">
+    <a class="nav-link" href="/calc2">#2 Battery bank dimensioning</a>
+  </li>
+
+  <li class="nav-item">
+    <a class="nav-link" href="/calc3">#3 Monthly irradiation evaluator</a>
+  </li>
+
+  <li class="nav-item">
+    <a class="nav-link active" href="/calc4">#4 PV array sizing</a>
+  </li>
+
+  <style>
+  .nav-link {
+      color: gray;
+  }
+  .nav-link:hover {
+    color: black;
+  }
+  </style>
+
+</ul>
+
+
+
+
+<div class="p-3 mb-2">
+    <div class="container py-2">
+        <div class="row">
+            <div class="col">
+                <div class="col-xs-12" style="height:30px;"></div>
+
+
+                <!--  Card 1 starts here  -->
+                <div class="card border-black text-black mx-auto" style="width: 50rem;">
+                  <div class="card-body">
+                    <p class="card-text">A simple PV array area finder, calculating needed square meters
+                    based on user inputs, as described in the table below.</p>
+
+                    <div class="col-xs-12" style="height:40px;"></div>
+
+
+                            <div class="row">
+                                <div class="col">
+
+
+                                    <! Input #1 box code below>
+                                    <div class="input-group mb-3" style="width:770px;">
+                                      <! method POST1>
+                                      <form method="POST">
+                                        <div class="form-row align-items-center">
+                                          <div class="col-auto">
+                                            <label class="sr-only" for="inlineFormInputGroup">labelA</label>
+                                            <div class="col-xs-12" style="height:10px;"></div>
+                                            <table class="table table-bordered">
+                                              <thead>
+                                                <tr>
+                                                  <th scope="col"></th>
+                                                  <th scope="col">Description</th>
+                                                  <th scope="col">Input</th>
+                                                  <th scope="col"></th>
+                                                </tr>
+                                              </thead>
+                                              <tbody>
+
+
+                                                <tr>
+                                                  <th scope="row">1</th>
+                                                  <td>
+                                                    <! step 1 description >
+                                                    <div>
+                                                      Location latitude in degrees.
+                                                      <br>Can be found from Google Maps.
+                                                    </div>
+                                                  </td>
+                                                  <td>
+                                                    <! Input latitude >
+                                                    <div class="input-group mb-2">
+                                                      <input name="latitude" type="text" class="form-control" id="inlineFormInputGroup" placeholder="[ ° ]" value="{{ request.form['latitude'] }}"/>
+                                                    </div>
+                                                  </td>
+                                                  <td></td>
+                                                </tr>
+
+
+                                                <tr>
+                                                  <th scope="row">2</th>
+                                                  <td>
+                                                    <! step 2 description >
+                                                    <div>
+                                                      Irradiation in watts per squaremeters.
+                                                      <br>Can be found and used from page #3.
+                                                    </div>
+                                                  </td>
+                                                  <td>
+                                                    <! i_sis >
+                                                    <div class="input-group mb-2">
+                                                      <input name="i_sis" type="text" class="form-control" id="inlineFormInputGroup" placeholder="[ Wm^(-2) ]" value="{{ request.form['i_sis'] }}"/>
+                                                    </div>
+                                                  </td>
+                                                  <td></td>
+                                                </tr>
+
+
+                                                <tr>
+                                                  <th scope="row">3</th>
+                                                  <td>
+                                                    <! step 3 description >
+                                                    <div>
+                                                      Daily energy usage in watthours.
+                                                      <br>Can be found and used from page #1.
+                                                    </div>
+                                                  </td>
+                                                  <td>
+                                                    <! Input e_d >
+                                                    <div class="input-group mb-2">
+                                                      <input name="e_d" type="text" class="form-control" id="inlineFormInputGroup" placeholder="[ Wh ]" value="{{ request.form['e_d'] }}"/>
+                                                    </div>
+                                                  </td>
+                                                  <td></td>
+                                                </tr>
+
+
+                                                <tr>
+                                                  <th scope="row">4</th>
+                                                  <td>
+                                                    <! step 4 description >
+                                                    <div>
+                                                      PV module maximum power point efficiency
+                                                      <br>in percent. (Sometimes called conversion efficiency.)
+                                                      <br>Can be found in PV module datasheet.
+                                                    </div>
+                                                  </td>
+                                                  <td>
+                                                    <! Input mpp_e >
+                                                    <div class="input-group mb-2">
+                                                      <input name="mpp_e" type="text" class="form-control" id="inlineFormInputGroup" placeholder="[ % ]" value="{{ request.form['mpp_e'] }}"/>
+                                                    </div>
+                                                  </td>
+                                                  <td></td>
+                                                </tr>
+
+
+
+                                                <tr>
+                                                  <th scope="row"></th>
+                                                  <td colspan="2"><p align="right">Estimated PV array surface area:</p></td>
+                                                  <td><b>{{ array_area }} <br> [ m^(2) ]</b></td>
+
+
+
+                                                </tr>
+
+
+
+
+
+                                              </tbody>
+                                            </table>
+                                          </div>
+                                        </div>
+                                        <div class="col-xs-12" style="height:10px;"></div>
+                                        <input type="submit" class="btn btn-primary">
+                                      </form>
+                                    </div>
+
+
+
+
+
+                                    <div class="col-xs-12" style="height:30px;"></div>
+                                    Note:
+                                    <br>This page algorithm is assuming that the incident sun angle relative to the PV module has an average value
+                                    of 5 degrees, as well as neglecting losses from a fixed azimuth angle and high operating temperatures.
+
+                                    <hr>
+
+                                    <div class="col-xs-12" style="height:60px;"></div>
+
+
+
+
+                                </div>
+                            </div>
+
+
+
+
+
+
+                    <p class="card-text">Comments and improvement suggestions are always welcomed and appreciated.</p>
+
+                  </div>
+                </div>
+
+                <div class="col-xs-12" style="height:40px;"></div>
+
+
+              <div class="col-xs-12" style="height:500px;"></div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+{% endblock content %}

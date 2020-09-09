@@ -1,0 +1,97 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<ul class="nav nav-tabs">
+
+  <li class="nav-item">
+    <a class="nav-link active" href="/calculator">PV-Calculator FAQ's</a>
+  </li>
+
+  <li class="nav-item">
+    <a class="nav-link" href="/calc1">#1 Energy usage calculator</a>
+  </li>
+
+  <li class="nav-item">
+    <a class="nav-link" href="/calc2">#2 Battery bank dimensioning</a>
+  </li>
+
+  <li class="nav-item">
+    <a class="nav-link" href="/calc3">#3 Monthly irradiation evaluator</a>
+  </li>
+
+  <li class="nav-item">
+    <a class="nav-link" href="/calc4">#4 PV array sizing</a>
+  </li>
+
+  <style>
+  .nav-link {
+      color: gray;
+  }
+  .nav-link:hover {
+    color: black;
+  }
+  </style>
+
+</ul>
+
+
+
+
+<div class="p-3 mb-2">
+  <div class="container py-2">
+    <div class="row">
+      <div class="col">
+        <div class="col-xs-12" style="height:20px;"></div>
+
+        <div class="card border-black text-black mx-auto" style="width: 50rem;">
+          <div class="card-body">
+            <h5 class="card-header" style="text-align:center;">Frequently Asked Questions</h5>
+
+
+
+
+            <div class="col-xs-12" style="height:40px;"></div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                <ul>
+                  <li><p class="font-weight-bold">Who is this PV-Calculator for ?</p></li>
+                </ul>
+                <div class="col-xs-12" style="height:10px;"></div>
+                <p class="card-text">
+                The aim is to make it useful for both hobbyists and engineers.
+                </p>
+                <div class="col-xs-12" style="height:20px;"></div>
+              </li>
+              <li class="list-group-item">
+                <ul>
+                  <li><p class="font-weight-bold">What does it calculate ?</p></li>
+                </ul>
+                <div class="col-xs-12" style="height:10px;"></div>
+                <p class="card-text">
+                It is being developed as a tool and resource related to off-grid photovoltaic electrical systems. Correctly used,
+                the four parts can provide estimates for component sizing.
+                </p>
+                <div class="col-xs-12" style="height:20px;"></div>
+              </li>
+              <li class="list-group-item">
+                <ul>
+                  <li><p class="font-weight-bold">Can I get help using it ?</p></li>
+                </ul>
+                <div class="col-xs-12" style="height:10px;"></div>
+                <p class="card-text">
+                Sure, just send us a message and we'll do our best to help.
+                </p>
+                <div class="col-xs-12" style="height:20px;"></div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-xs-12" style="height:500px;"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+{% endblock content %}
