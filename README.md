@@ -8,8 +8,8 @@ Application and Server Description
 
 Developed using HTML and Python back-end with the Flask framework. Javascript and CSS through Bootstrap was used for front-end design and to obtain screen size responsive design 
 
-    Originally (in 2020) deployed using Linode. Hosted on a cloud Linux server using Nginx 1.16.1 and Ubuntu 19.10 as operating system. Running Python 2.7.17 with Flask 1.1.1 and Pygal 2.4.0
-    Redeployed in 2023 via Docker file using fly.io with the addition of GitHub actions for automated code deployments when changes are pushed from the local machine.
+- Originally (in 2020) deployed using Linode. Hosted on a cloud Linux server using Nginx 1.16.1 and Ubuntu 19.10 as operating system. Running Python 2.7.17 with Flask 1.1.1 and Pygal 2.4.0
+- Redeployed in 2023 via Docker file using fly.io with the addition of GitHub actions for automated code deployments when changes are pushed from the local machine.
 
 Flask App Files and Structure
 
